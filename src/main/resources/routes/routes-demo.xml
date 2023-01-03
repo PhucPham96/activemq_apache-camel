@@ -1,0 +1,15 @@
+
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://camel.apache.org/schema/spring"
+    xsi:schemaLocation="http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd ">
+
+    <route id="HelloRequest">
+        <from uri="activemq:queue:phucFrom" />
+        <log message="Hello ${body}"/>
+        <process ref="helloRequestProcess" />
+        <process ref="helloRequestProcess2" />
+        <to uri="activemq:queue:phucTo2" />
+    </route>
+
+
+</routes>
