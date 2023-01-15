@@ -8,6 +8,8 @@
         <log message="Hello ${body}"/>
         <process ref="helloRequestProcess" />
         <process ref="helloRequestProcess2" />
+        <to uri="sql:select * from tutorials"/>
+        <process ref="helloRequestProcess3" />
         <to uri="activemq:queue:phucTo2" />
     </route>
 
