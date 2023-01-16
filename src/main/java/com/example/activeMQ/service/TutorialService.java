@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TutorialService {
@@ -27,5 +29,9 @@ public class TutorialService {
                 .published(tutorial.getPublished().toString())
                 .build();
         return ResponseEntity.ok(createTutorialResponseDTO);
+    }
+
+    public ResponseEntity<List<Tutorial>> getAllTutorials() {
+        return ResponseEntity.ok(tutorialRepository.findAll());
     }
 }

@@ -8,10 +8,18 @@
         <log message="Hello ${body}"/>
         <process ref="helloRequestProcess" />
         <process ref="helloRequestProcess2" />
-        <to uri="sql:select * from tutorials"/>
+<!--        <to uri="sql:select * from tutorials"/>-->
+        <to uri="sql:classpath:sql/GetTutorialSQL.sql" />
         <process ref="helloRequestProcess3" />
         <to uri="activemq:queue:phucTo2" />
     </route>
 
-
+    <route id="MSSQLRequest">
+        <from uri="activemq:queue:phucFromMSSQL" />
+        <log message="${body}"/>
+        <to uri="sql:select * from tutorials"/>
+        <process ref="MSSQLGetProcessor" />
+        <process ref="MSSQLCreateProcessor" />
+        <to uri="sql:insert into tutorials(id,description, published, title) values (:#id, :#description, :#published, :#title)" />
+    </route>
 </routes>
