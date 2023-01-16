@@ -5,7 +5,7 @@ import org.apache.camel.Processor;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MSSQLGetProcessor implements Processor {
+public class MSSQLGetAllProcessor implements Processor {
 
     @Override
     public void process(Exchange exchange) throws Exception {

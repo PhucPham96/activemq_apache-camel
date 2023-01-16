@@ -5,7 +5,6 @@
 
     <route id="HelloRequest">
         <from uri="activemq:queue:phucFrom" />
-        <log message="Hello ${body}"/>
         <process ref="helloRequestProcess" />
         <process ref="helloRequestProcess2" />
 <!--        <to uri="sql:select * from tutorials"/>-->
@@ -14,12 +13,29 @@
         <to uri="activemq:queue:phucTo2" />
     </route>
 
-    <route id="MSSQLRequest">
-        <from uri="activemq:queue:phucFromMSSQL" />
-        <log message="${body}"/>
+    <route id="MSSQLGetAllRequest">
+        <from uri="activemq:queue:FromMSSQLGetAll" />
         <to uri="sql:select * from tutorials"/>
-        <process ref="MSSQLGetProcessor" />
-        <process ref="MSSQLCreateProcessor" />
-        <to uri="sql:insert into tutorials(id,description, published, title) values (:#id, :#description, :#published, :#title)" />
+        <process ref="MSSQLGetAllProcessor" />
+    </route>
+    <route id="MSSQLCreateOneRequest">
+        <from uri="activemq:queue:FromMSSQLCreateOneObject" />
+        <process ref="MSSQLCreateOneRequestProcessor" />
+        <to uri="sql:insert into tutorials(description, published, title) values (:#description, :#published, :#title)" />
+        <process ref="MSSQLCreateOneResponseProcessor" />
+    </route>
+    <route id="MSSQLCreateMultipleRequest">
+        <from uri="activemq:queue:FromMSSQLCreateMultipleObject" />
+        <process ref="MSSQLCreateByListObjectRequestProcessor" />
+        <split>
+            <simple>${body}</simple>
+            <to uri="sql:insert into tutorials(description, published, title) values (:#description, :#published, :#title)" />
+        </split>
+        <process ref="MSSQLCreateByListObjectResponseProcessor" />
+    </route>
+    <route id="MSSQLUpdateOneRequest">
+        <from uri="activemq:queue:FromMSSQLUpdateOneObject" />
+        <process ref="MSSQLUpdateOneRequestProcessor" />
+        <to uri="sql:update tutorials set description = :#description, published = :#published, title = :#title where id = :#id" />
     </route>
 </routes>
