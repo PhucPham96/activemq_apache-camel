@@ -1,47 +1,47 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:cxf="http://camel.apache.org/schema/cxf" xmlns:jaxrs="http://cxf.apache.org/jaxrs"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="
-       http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/cxf
-       http://camel.apache.org/schema/cxf/camel-cxf.xsd
-       http://cxf.apache.org/jaxrs
-       http://cxf.apache.org/schemas/jaxrs.xsd
-       http://www.springframework.org/schema/jdbc
-       http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
-       http://camel.apache.org/schema/spring
-       http://camel.apache.org/schema/spring/camel-spring.xsd
-       http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd ">
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+<!--       xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--       xmlns:cxf="http://camel.apache.org/schema/cxf" xmlns:jaxrs="http://cxf.apache.org/jaxrs"-->
+<!--       xmlns:context="http://www.springframework.org/schema/context"-->
+<!--       xsi:schemaLocation="-->
+<!--       http://www.springframework.org/schema/beans-->
+<!--       http://www.springframework.org/schema/beans/spring-beans.xsd-->
+<!--       http://camel.apache.org/schema/cxf-->
+<!--       http://camel.apache.org/schema/cxf/camel-cxf.xsd-->
+<!--       http://cxf.apache.org/jaxrs-->
+<!--       http://cxf.apache.org/schemas/jaxrs.xsd-->
+<!--       http://www.springframework.org/schema/jdbc-->
+<!--       http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd-->
+<!--       http://camel.apache.org/schema/spring-->
+<!--       http://camel.apache.org/schema/spring/camel-spring.xsd-->
+<!--       http://www.springframework.org/schema/context-->
+<!--       http://www.springframework.org/schema/context/spring-context.xsd ">-->
 
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-          destroy-method="close">
-        <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
-        <property name="url" value="jdbc:sqlserver://localhost:1433;encrypt=true;trustServerCertificate=true;databaseName=master" />
-        <property name="username" value="sa" />
-        <property name="password" value="yourStrong(!)Password" />
-    </bean>
+<!--    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"-->
+<!--          destroy-method="close">-->
+<!--        <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />-->
+<!--        <property name="url" value="jdbc:sqlserver://localhost:1433;encrypt=true;trustServerCertificate=true;databaseName=master" />-->
+<!--        <property name="username" value="sa" />-->
+<!--        <property name="password" value="yourStrong(!)Password" />-->
+<!--    </bean>-->
 
-<!--    <jdbc:initialize-database data-source="dataSource"-->
-<!--                              enabled="true">-->
-<!--        <jdbc:script location="classpath:db-schema.sql" />-->
-<!--    </jdbc:initialize-database>-->
+<!--&lt;!&ndash;    <jdbc:initialize-database data-source="dataSource"&ndash;&gt;-->
+<!--&lt;!&ndash;                              enabled="true">&ndash;&gt;-->
+<!--&lt;!&ndash;        <jdbc:script location="classpath:db-schema.sql" />&ndash;&gt;-->
+<!--&lt;!&ndash;    </jdbc:initialize-database>&ndash;&gt;-->
 
-    <bean id="sqlComponent" class="org.apache.camel.component.sql.SqlComponent">
-        <property name="dataSource" ref="dataSource" />
-    </bean>
+<!--    <bean id="sqlComponent" class="org.apache.camel.component.sql.SqlComponent">-->
+<!--        <property name="dataSource" ref="dataSource" />-->
+<!--    </bean>-->
 
-<!--    <bean id="employeeMapper" class="com.javainuse.util.EmployeeMapper" />-->
-<!--    <bean id="employeeRouter" class="com.javainuse.router.EmployeeRouter" />-->
+<!--&lt;!&ndash;    <bean id="employeeMapper" class="com.javainuse.util.EmployeeMapper" />&ndash;&gt;-->
+<!--&lt;!&ndash;    <bean id="employeeRouter" class="com.javainuse.router.EmployeeRouter" />&ndash;&gt;-->
 
-<!--    <camelContext id="employeeContext" xmlns="http://camel.apache.org/schema/spring">-->
+<!--&lt;!&ndash;    <camelContext id="employeeContext" xmlns="http://camel.apache.org/schema/spring">&ndash;&gt;-->
 
-<!--        <propertyPlaceholder id="placeholder" location="classpath:sql.properties" />-->
-<!--        <routeBuilder ref="employeeRouter" />-->
+<!--&lt;!&ndash;        <propertyPlaceholder id="placeholder" location="classpath:sql.properties" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <routeBuilder ref="employeeRouter" />&ndash;&gt;-->
 
-<!--    </camelContext>-->
+<!--&lt;!&ndash;    </camelContext>&ndash;&gt;-->
 
-</beans>
+<!--</beans>-->

@@ -90,16 +90,22 @@
 			<artifactId>camel-sql</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>commons-dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
-			<version>1.4</version>
-<!--			<scope>provided</scope>-->
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>commons-dbcp</groupId>-->
+<!--			<artifactId>commons-dbcp</artifactId>-->
+<!--			<version>1.4</version>-->
+<!--&lt;!&ndash;			<scope>provided</scope>&ndash;&gt;-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-jpa</artifactId>
+			<version>${camel.version}</version>
 		</dependency>
 
 

@@ -8,10 +8,17 @@
         <log message="Hello ${body}"/>
         <process ref="helloRequestProcess" />
         <process ref="helloRequestProcess2" />
-        <to uri="sql:select * from tutorials"/>
+        <to uri="jpa://com.example.activeMQ.model?namedQuery=tutorials.findAll" />
         <process ref="helloRequestProcess3" />
-        <to uri="activemq:queue:phucTo2" />
     </route>
 
+    <route id="GetTutorialResponse">
+        <from uri="activemq:queue:mssql.camel.jpa" />
+        <log message="Hello ${body}"/>
+        <to uri="jpa://com.example.activeMQ.model?namedQuery=tutorials.findAll" />
+        <process ref="getTutorialsResponseProcess" />
+        <process ref="createTutorialsRequestProcess" />
+<!--        <to uri="jpa://com.example.activeMQ.model?nativeQuery=insert into tutorials(description, published, title) values (:#description, :#published, :#title)" />-->
+    </route>
 
 </routes>
