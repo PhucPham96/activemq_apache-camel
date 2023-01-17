@@ -1,5 +1,6 @@
 package com.example.activeMQ.controller;
 
+import com.example.activeMQ.common.ResponseDTO;
 import com.example.activeMQ.dto.request.CreateTutorialRequestDTO;
 import com.example.activeMQ.dto.response.CreateTutorialResponseDTO;
 import com.example.activeMQ.model.Tutorial;
@@ -25,7 +26,7 @@ public class TutorialController {
     }
 
     @GetMapping("/tutorials")
-    public ResponseEntity<List<Tutorial>> getAllTutorials() {
+    public ResponseEntity<ResponseDTO<Tutorial>> getAllTutorials() {
         return tutorialService.getAllTutorials();
     }
 }

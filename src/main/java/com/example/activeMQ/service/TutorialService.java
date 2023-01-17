@@ -1,5 +1,6 @@
 package com.example.activeMQ.service;
 
+import com.example.activeMQ.common.ResponseDTO;
 import com.example.activeMQ.dto.request.CreateTutorialRequestDTO;
 import com.example.activeMQ.dto.response.CreateTutorialResponseDTO;
 import com.example.activeMQ.model.Tutorial;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,7 +33,9 @@ public class TutorialService {
         return ResponseEntity.ok(createTutorialResponseDTO);
     }
 
-    public ResponseEntity<List<Tutorial>> getAllTutorials() {
-        return ResponseEntity.ok(tutorialRepository.findAll());
+    public ResponseEntity<ResponseDTO<Tutorial>> getAllTutorials() {
+        ResponseDTO response = new ResponseDTO<>();
+        response.data = tutorialRepository.findAll();
+        return ResponseEntity.ok(response);
     }
 }
