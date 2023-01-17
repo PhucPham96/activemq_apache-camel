@@ -1,0 +1,26 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <typeAliases>
+        <typeAlias alias="Tutorial" type="com.example.activeMQ.entity.Tutorial"/>
+        <typeAlias type="com.example.activeMQ.mapper.TutorialMapper" />
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+                <property name="url" value="jdbc:sqlserver://localhost:1433;encrypt=true;trustServerCertificate=true;databaseName=master" />
+                <property name="username" value="sa" />
+                <property name="password" value="yourStrong(!)Password" />
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="mybatis/mappers/TutorialMapper.xml" />
+        <package name="com.example.activeMQ.mapper"/>
+    </mappers>
+</configuration>

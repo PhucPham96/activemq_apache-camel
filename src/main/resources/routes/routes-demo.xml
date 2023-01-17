@@ -8,10 +8,45 @@
         <log message="Hello ${body}"/>
         <process ref="helloRequestProcess" />
         <process ref="helloRequestProcess2" />
-        <to uri="sql:select * from tutorials"/>
+<!--        <to uri="sql:select * from tutorials"/>-->
+        <to uri="mybatis:findAllTutorials?statementType=SelectList"/>
         <process ref="helloRequestProcess3" />
-        <to uri="activemq:queue:phucTo2" />
+<!--        <to uri="activemq:queue:phucTo2" />-->
     </route>
 
+    <route id="GetAllTutorialRequest">
+        <from uri="activemq:queue:MyBatisGetAll" />
+        <to uri="mybatis:findAllTutorials?statementType=SelectList"/>
+        <process ref="getAllTutorialResponseProcessor" />
+    </route>
+    <route id="FindTutorialByIdRequest">
+        <from uri="activemq:queue:MybatisFindTutorialById" />
+        <process ref="findTutorialByIdRequestProcessor" />
+        <to uri="mybatis:findById?statementType=SelectOne"/>
+        <process ref="findTutorialByIdResponseProcessor" />
+    </route>
+
+    <route id="CreateTutorialRequest">
+        <from uri="activemq:queue:MyBatisCreateOneRow" />
+        <process ref="createTutorialRequestProcessor" />
+        <to uri="mybatis:insertTutorial?statementType=Insert"/>
+    </route>
+    <route id="CreateTutorialsRequest">
+        <from uri="activemq:queue:MybatisCreateTutorials" />
+        <process ref="createTutorialsRequestProcessor" />
+        <to uri="mybatis:insertTutorials?statementType=InsertList"/>
+    </route>
+
+    <route id="UpdateTutorialsRequest">
+        <from uri="activemq:queue:MybatisUpdateTutorials" />
+        <process ref="updateTutorialsRequestProcessor" />
+        <to uri="mybatis:updateTutorials?statementType=UpdateList"/>
+    </route>
+
+    <route id="DeleteTutorialsRequest">
+        <from uri="activemq:queue:MybatisDeleteTutorials" />
+        <process ref="deleteTutorialsRequestProcessor" />
+        <to uri="mybatis:deleteTutorials?statementType=DeleteList"/>
+    </route>
 
 </routes>
