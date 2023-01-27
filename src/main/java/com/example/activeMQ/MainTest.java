@@ -21,5 +21,7 @@ public class MainTest {
 
         int inserted = tutorialMapper.insertTutorial(Tutorial.builder().description("test01").published(false).title("title01").build());
         System.out.println("Insert: " + inserted);
+        sqlSession.commit();
+        sqlSession.close();
     }
 }
