@@ -8,12 +8,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class FindTutorialByIdRequestProcessor implements Processor {
+public class CreateTutorialResponseProcessor implements Processor {
 
     @Override
     public void process(Exchange exchange) throws Exception {
-        log.info("FindTutorialByIdRequestProcessor");
-        Long id = exchange.getIn().getBody(Long.class);
-        exchange.getIn().setBody(Tutorial.builder().id(id).build());
+        Tutorial tutorial = exchange.getIn().getBody(Tutorial.class);
+        log.info("CreateTutorialResponseProcessor: {}", tutorial.getId());
     }
 }

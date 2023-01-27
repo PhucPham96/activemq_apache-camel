@@ -17,10 +17,13 @@ public class UpdateTutorialsRequestProcessor implements Processor {
     @Override
     public void process(Exchange exchange) throws Exception {
         log.info("UpdateTutorialsRequestProcessor");
+        String idStrings = exchange.getIn().getBody(String.class);
+        String[] idStringArrays = idStrings.split(",");
+        int idsLength = idStringArrays.length;
         List<Tutorial> tutorials = new ArrayList<>();
-        for (long i = 0; i < 3; i++) {
+        for (int i = 0; i < idsLength; i++) {
             Tutorial tutorial = new Tutorial();
-            tutorial.setId(i);
+            tutorial.setId(Long.valueOf(idStringArrays[i].trim()));
             tutorial.setPublished(true);
             tutorial.setDescription("updated from UpdateTutorialsRequestProcessor");
             tutorial.setTitle("updated from UpdateTutorialsRequestProcessor");

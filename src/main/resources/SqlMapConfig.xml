@@ -4,7 +4,7 @@
 <configuration>
     <typeAliases>
         <typeAlias alias="Tutorial" type="com.example.activeMQ.entity.Tutorial"/>
-        <typeAlias type="com.example.activeMQ.mapper.TutorialMapper" />
+<!--        <typeAlias type="com.example.activeMQ.mapper.TutorialMapper" />-->
     </typeAliases>
 
     <environments default="development">
@@ -21,6 +21,6 @@
 
     <mappers>
         <mapper resource="mybatis/mappers/TutorialMapper.xml" />
-        <package name="com.example.activeMQ.mapper"/>
+<!--        <package name="com.example.activeMQ.mapper"/>-->
     </mappers>
 </configuration>

@@ -22,7 +22,7 @@
     <route id="FindTutorialByIdRequest">
         <from uri="activemq:queue:MybatisFindTutorialById" />
         <process ref="findTutorialByIdRequestProcessor" />
-        <to uri="mybatis:findById?statementType=SelectOne"/>
+            <to uri="mybatis:findById?statementType=SelectOne"/>
         <process ref="findTutorialByIdResponseProcessor" />
     </route>
 
@@ -30,6 +30,7 @@
         <from uri="activemq:queue:MyBatisCreateOneRow" />
         <process ref="createTutorialRequestProcessor" />
         <to uri="mybatis:insertTutorial?statementType=Insert"/>
+        <process ref="createTutorialResponseProcessor" />
     </route>
     <route id="CreateTutorialsRequest">
         <from uri="activemq:queue:MybatisCreateTutorials" />

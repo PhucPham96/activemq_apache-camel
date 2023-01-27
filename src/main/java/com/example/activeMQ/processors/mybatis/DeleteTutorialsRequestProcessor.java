@@ -15,14 +15,14 @@ public class DeleteTutorialsRequestProcessor implements Processor {
 
     @Override
     public void process(Exchange exchange) throws Exception {
+        String idDeletedStrings = exchange.getIn().getBody(String.class);
         log.info("DeleteTutorialsRequestProcessor");
+        String[] idDeletedStringArrays = idDeletedStrings.split(",");
+        int idsLength = idDeletedStringArrays.length;
         List<Tutorial> tutorials = new ArrayList<>();
-        for (long i = 0; i < 3; i++) {
+        for (int i = 0; i < idsLength; i++) {
             Tutorial tutorial = new Tutorial();
-            tutorial.setId(20L + i);
-            tutorial.setDescription("mybatis description" + i);
-            tutorial.setTitle("mybatis title " + i);
-            tutorial.setPublished(true);
+            tutorial.setId(Long.valueOf(idDeletedStringArrays[i].trim()));
             tutorials.add(tutorial);
         }
         exchange.getIn().setBody(tutorials);
