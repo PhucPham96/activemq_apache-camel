@@ -52,19 +52,19 @@
 
     <route id="TransactionalRequest">
         <from uri="activemq:queue:MybatisTransactionalRequest" />
-        <transacted ref="txRequired">
-            <doTry>
+        <transacted ref="txRequired" />
+<!--            <doTry>-->
                 <process ref="updateTutorialsRequestProcessor" />
                 <to uri="mybatis:updateTutorials?statementType=UpdateList"/>
                 <process ref="transactionRequestProcessor" />
                 <to uri="mybatis:insertTutorials?statementType=InsertList"/>
-                <doCatch>
-                    <exception>java.lang.Exception</exception>
-                    <log message="aaaaaaaaaaaaaa" />
-<!--                    <rollback message="An error has occurred"/>-->
-                </doCatch>
-            </doTry>
-        </transacted>
+<!--                <doCatch>-->
+<!--                    <exception>java.lang.Exception</exception>-->
+<!--                    <log message="aaaaaaaaaaaaaa" />-->
+<!--&lt;!&ndash;                    <rollback message="An error has occurred"/>&ndash;&gt;-->
+<!--                </doCatch>-->
+<!--            </doTry>-->
+<!--        </transacted>-->
 
 <!--        <process ref="transactionFailureHandler" />-->
 
