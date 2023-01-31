@@ -7,10 +7,10 @@
 <!--        <typeAlias type="com.example.activeMQ.mapper.TutorialMapper" />-->
     </typeAliases>
 
-    <environments default="development">
+    <environments default="development"><!--cấu hình thông tin kết nối đến database.Có thể có nhiều thẻ environment để có thể kết nối đến nhiều database khác nhau -->
         <environment id="development">
-            <transactionManager type="JDBC" />
-            <dataSource type="POOLED">
+            <transactionManager type="JDBC" /> <!-- JDBC/MANAGED -->
+            <dataSource type="POOLED"> <!--Mybatis sẽ duy trì tạo ra 1 pool các connection.Khi thao tác với DB sẽ sử dụng 1 connection và trả connection cho pool khi hoàn thành thao tác -->
                 <property name="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
                 <property name="url" value="jdbc:sqlserver://localhost:1433;encrypt=true;trustServerCertificate=true;databaseName=master" />
                 <property name="username" value="sa" />
@@ -19,7 +19,7 @@
         </environment>
     </environments>
 
-    <mappers>
+    <mappers> <!-- Cấu hình vị trí của file mapper.xml(nơi chứa SQL) -->
         <mapper resource="mybatis/mappers/TutorialMapper.xml" />
 <!--        <package name="com.example.activeMQ.mapper"/>-->
     </mappers>

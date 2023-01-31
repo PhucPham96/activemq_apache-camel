@@ -22,7 +22,7 @@
     <route id="FindTutorialByIdRequest">
         <from uri="activemq:queue:MybatisFindTutorialById" />
         <process ref="findTutorialByIdRequestProcessor" />
-            <to uri="mybatis:findById?statementType=SelectOne"/>
+        <to uri="mybatis:findById?statementType=SelectOne"/>
         <process ref="findTutorialByIdResponseProcessor" />
     </route>
 
@@ -48,6 +48,31 @@
         <from uri="activemq:queue:MybatisDeleteTutorials" />
         <process ref="deleteTutorialsRequestProcessor" />
         <to uri="mybatis:deleteTutorials?statementType=DeleteList"/>
+    </route>
+
+    <route id="TransactionalRequest">
+        <from uri="activemq:queue:MybatisTransactionalRequest" />
+        <transacted ref="txRequired">
+            <doTry>
+                <process ref="updateTutorialsRequestProcessor" />
+                <to uri="mybatis:updateTutorials?statementType=UpdateList"/>
+                <process ref="transactionRequestProcessor" />
+                <to uri="mybatis:insertTutorials?statementType=InsertList"/>
+                <doCatch>
+                    <exception>java.lang.Exception</exception>
+                    <log message="aaaaaaaaaaaaaa" />
+<!--                    <rollback message="An error has occurred"/>-->
+                </doCatch>
+            </doTry>
+        </transacted>
+
+<!--        <process ref="transactionFailureHandler" />-->
+
+<!--        <onException>-->
+<!--            <exception>java.lang.Exception</exception>-->
+<!--            <handled><constant>true</constant></handled>-->
+<!--            <rollback message="An error has occurred" markRollbackOnly="true"/>-->
+<!--        </onException>-->
     </route>
 
 </routes>

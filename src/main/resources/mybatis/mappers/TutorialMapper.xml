@@ -1,6 +1,6 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.activeMQ.mapper.TutorialMapper">
+<mapper namespace="com.example.activeMQ.mapper.TutorialMapper"> <!--namespace để mapping với class interface mapper -->
     <resultMap id="TutorialResultMap" type="com.example.activeMQ.entity.Tutorial">
         <result column="id" property="id" javaType="java.lang.Long"/>
         <result column="description" property="description" javaType="java.lang.String" jdbcType="VARCHAR"/>
@@ -22,6 +22,10 @@
     <!--insert one row-->
     <insert id="insertTutorial" parameterType="Tutorial" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO TUTORIALS (DESCRIPTION, PUBLISHED, TITLE ) VALUES (#{description},#{published}, #{title});
+    </insert>
+    <!--insert one row with id-->
+    <insert id="insertTutorialWithId" parameterType="Tutorial" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO TUTORIALS (ID, DESCRIPTION, PUBLISHED, TITLE ) VALUES (#{id}, #{description},#{published}, #{title});
     </insert>
 
     <!--insert multi row-->

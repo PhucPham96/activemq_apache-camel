@@ -14,13 +14,15 @@ public interface TutorialMapper {
 
     int insertTutorial(Tutorial tutorial);
 
+    int insertTutorialWithId(Tutorial tutorial);
+
     List<Tutorial> findAllTutorials();
 
     Tutorial findById(Long id);
 
-    int insertTutorials(@Param("tutorials") List<Tutorial> tutorials);
+    int insertTutorials(@Param("list") List<Tutorial> tutorials);
 
-    int updateTutorials(@Param("tutorials") List<Tutorial> tutorials);
+    int updateTutorials(@Param("list") List<Tutorial> tutorials);
 
-    int deleteTutorials(@Param("tutorials") List<Tutorial> tutorials);
+    int deleteTutorials(@Param("list") List<Tutorial> tutorials);
 }
