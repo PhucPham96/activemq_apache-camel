@@ -1,31 +1,42 @@
 package com.example.activeMQ.configurations;
 
-import com.atomikos.icatch.jta.UserTransactionManager;
 import lombok.RequiredArgsConstructor;
 import org.apache.camel.component.mybatis.MyBatisComponent;
 import org.apache.camel.spring.spi.SpringTransactionPolicy;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.jta.JtaTransactionManager;
 
 import javax.sql.DataSource;
-import javax.transaction.SystemException;
 
 @Configuration
 @RequiredArgsConstructor
 @MapperScan("com.example.activeMQ.mapper")
-public class MSSQLConfig {
+public class MybatisConfig {
 
-    private final DataSource dataSource;
+    @Autowired
+    @Qualifier("mssqlDataSource")
+    private DataSource dataSource;
+
+    @Autowired
+    @Qualifier("mssqlDataSource2")
+    private DataSource dataSource2;
+
+    @Autowired
+    @Qualifier("mySQLDataSource")
+    private DataSource mySQlDataSource;
+
     private final ApplicationContext applicationContext;
 
-    @Bean
+    @Bean(name = "sqlSessionFactory")
+    @Primary
     public SqlSessionFactory sqlSessionFactory() throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
@@ -33,10 +44,40 @@ public class MSSQLConfig {
         return sqlSessionFactoryBean.getObject();
     }
 
-    @Bean
+    @Bean(name = "sqlSessionFactory2")
+    public SqlSessionFactory sqlSessionFactory2() throws Exception {
+        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        sqlSessionFactoryBean.setDataSource(dataSource2);
+        sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:SqlMapConfig.xml"));
+        return sqlSessionFactoryBean.getObject();
+    }
+
+    @Bean(name = "mySQLSessionFactory")
+    public SqlSessionFactory mySQLSessionFactory() throws Exception {
+        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        sqlSessionFactoryBean.setDataSource(mySQlDataSource);
+        sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:SqlMapConfig.xml"));
+        return sqlSessionFactoryBean.getObject();
+    }
+
+    @Bean(name = "myBatis")
     public MyBatisComponent myBatisComponent() throws Exception {
         MyBatisComponent myBatisComponent = new MyBatisComponent();
         myBatisComponent.setSqlSessionFactory(sqlSessionFactory());
+        return myBatisComponent;
+    }
+
+    @Bean(name = "myBatis2")
+    public MyBatisComponent myBatisComponent2() throws Exception {
+        MyBatisComponent myBatisComponent = new MyBatisComponent();
+        myBatisComponent.setSqlSessionFactory(sqlSessionFactory2());
+        return myBatisComponent;
+    }
+
+    @Bean(name = "myBatisMySQL")
+    public MyBatisComponent myBatisMySQLComponent() throws Exception {
+        MyBatisComponent myBatisComponent = new MyBatisComponent();
+        myBatisComponent.setSqlSessionFactory(mySQLSessionFactory());
         return myBatisComponent;
     }
 

@@ -7,6 +7,21 @@
         <result column="published" property="published" javaType="java.lang.Boolean" jdbcType="VARCHAR"/>
         <result column="title" property="title" javaType="java.lang.String" jdbcType="VARCHAR"/>
     </resultMap>
+    <resultMap id="AccountResultMap" type="com.example.activeMQ.entity.Account">
+        <result column="id" property="id" javaType="java.lang.Long"/>
+        <result column="email" property="email" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="name" property="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="PersonResultMap" type="java.lang.Object">
+        <result column="id" property="id" javaType="java.lang.Long"/>
+        <result column="name" property="name" javaType="java.lang.String"/>
+        <collection property="address" resultMap="AddressResultMap" />
+    </resultMap>
+    <resultMap id="AddressResultMap" type="java.lang.Object">
+        <result column="id" property="id" javaType="java.lang.Long"/>
+        <result column="city" property="id" javaType="java.lang.String"/>
+        <result column="province" property="province" javaType="java.lang.String"/>
+    </resultMap>
 
     <!--Query-->
     <!--select all-->
@@ -57,4 +72,26 @@
             WHERE id = #{tutorial.id}
         </foreach>
     </delete>
+
+    <!-- Store Procedure -->
+    <select id="callProcedureGetAllTutorials" resultMap="TutorialResultMap">
+        { call getAllTutorials() }
+    </select>
+    <select id="callProcedureGetPersonAddress" resultMap="PersonResultMap">
+        { call GetPersonAddress() }
+    </select>
+
+
+
+    <!--             MYSQL         -->
+    <!--select all from mysql-->
+    <select id="findAllAccounts" resultMap="AccountResultMap">
+        SELECT * FROM Account
+    </select>
+    <select id="findAccountById" resultMap="AccountResultMap" parameterType="Account">
+        SELECT * FROM Account where id = #{id}
+    </select>
+    <insert id="insertAccount" parameterType="Tutorial" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO Account (email, name ) VALUES (#{email},#{name});
+    </insert>
 </mapper>

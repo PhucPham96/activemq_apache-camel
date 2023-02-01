@@ -4,20 +4,33 @@
 <configuration>
     <typeAliases>
         <typeAlias alias="Tutorial" type="com.example.activeMQ.entity.Tutorial"/>
-<!--        <typeAlias type="com.example.activeMQ.mapper.TutorialMapper" />-->
+        <typeAlias alias="Account" type="com.example.activeMQ.entity.Account"/>
     </typeAliases>
 
-    <environments default="development"><!--cấu hình thông tin kết nối đến database.Có thể có nhiều thẻ environment để có thể kết nối đến nhiều database khác nhau -->
-        <environment id="development">
-            <transactionManager type="JDBC" /> <!-- JDBC/MANAGED -->
-            <dataSource type="POOLED"> <!--Mybatis sẽ duy trì tạo ra 1 pool các connection.Khi thao tác với DB sẽ sử dụng 1 connection và trả connection cho pool khi hoàn thành thao tác -->
-                <property name="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
-                <property name="url" value="jdbc:sqlserver://localhost:1433;encrypt=true;trustServerCertificate=true;databaseName=master" />
-                <property name="username" value="sa" />
-                <property name="password" value="yourStrong(!)Password" />
-            </dataSource>
-        </environment>
-    </environments>
+<!--    <environments default="development">&lt;!&ndash;cấu hình thông tin kết nối đến database.Có thể có nhiều thẻ environment để có thể kết nối đến nhiều database khác nhau &ndash;&gt;-->
+<!--        <environment id="development">-->
+<!--            <transactionManager type="JDBC" /> &lt;!&ndash; JDBC/MANAGED &ndash;&gt;-->
+<!--            <dataSource type="POOLED"> &lt;!&ndash;Mybatis sẽ duy trì tạo ra 1 pool các connection.Khi thao tác với DB sẽ sử dụng 1 connection và trả connection cho pool khi hoàn thành thao tác &ndash;&gt;-->
+<!--                <property name="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />-->
+<!--                <property name="url" value="jdbc:sqlserver://localhost:1433;encrypt=true;trustServerCertificate=true;databaseName=master" />-->
+<!--                <property name="username" value="sa" />-->
+<!--                <property name="password" value="yourStrong(!)Password" />-->
+<!--            </dataSource>-->
+<!--        </environment>-->
+
+<!--&lt;!&ndash;        <environment id="mysql">&ndash;&gt;-->
+<!--&lt;!&ndash;            <transactionManager type="JDBC" /> &lt;!&ndash; JDBC/MANAGED &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;            <dataSource type="POOLED"> &lt;!&ndash;Mybatis sẽ duy trì tạo ra 1 pool các connection.Khi thao tác với DB sẽ sử dụng 1 connection và trả connection cho pool khi hoàn thành thao tác &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                <property name="driver" value="com.mysql.cj.jdbc.Driver" />&ndash;&gt;-->
+<!--&lt;!&ndash;                <property name="url" value="jdbc:mysql://localhost:3306/phuc_test_01" />&ndash;&gt;-->
+<!--&lt;!&ndash;                <property name="username" value="root" />&ndash;&gt;-->
+<!--&lt;!&ndash;                <property name="password" value="Nokia12345@" />&ndash;&gt;-->
+<!--&lt;!&ndash;            </dataSource>&ndash;&gt;-->
+<!--&lt;!&ndash;        </environment>&ndash;&gt;-->
+<!--    </environments>-->
+    <!-- mã hóa pass/ nhiều database/ execute store procedure -->
+    <!-- get data from DB1 mapping DB2 -->
+    <!-- so sánh các cách connect từ camel -> DB (camel-jpa,camel-sql,...) -->
 
     <mappers> <!-- Cấu hình vị trí của file mapper.xml(nơi chứa SQL) -->
         <mapper resource="mybatis/mappers/TutorialMapper.xml" />

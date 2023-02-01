@@ -16,38 +16,43 @@
 
     <route id="GetAllTutorialRequest">
         <from uri="activemq:queue:MyBatisGetAll" />
-        <to uri="mybatis:findAllTutorials?statementType=SelectList"/>
+        <to uri="myBatis:findAllTutorials?statementType=SelectList"/>
+        <process ref="getAllTutorialResponseProcessor" />
+    </route>
+    <route id="GetAllAccountsRequest2">
+        <from uri="activemq:queue:MyBatisGetAllAccounts2" />
+        <to uri="myBatis2:findAllAccounts?statementType=SelectList"/>
         <process ref="getAllTutorialResponseProcessor" />
     </route>
     <route id="FindTutorialByIdRequest">
         <from uri="activemq:queue:MybatisFindTutorialById" />
         <process ref="findTutorialByIdRequestProcessor" />
-        <to uri="mybatis:findById?statementType=SelectOne"/>
+        <to uri="myBatis:findById?statementType=SelectOne"/>
         <process ref="findTutorialByIdResponseProcessor" />
     </route>
 
     <route id="CreateTutorialRequest">
         <from uri="activemq:queue:MyBatisCreateOneRow" />
         <process ref="createTutorialRequestProcessor" />
-        <to uri="mybatis:insertTutorial?statementType=Insert"/>
+        <to uri="myBatis:insertTutorial?statementType=Insert"/>
         <process ref="createTutorialResponseProcessor" />
     </route>
     <route id="CreateTutorialsRequest">
         <from uri="activemq:queue:MybatisCreateTutorials" />
         <process ref="createTutorialsRequestProcessor" />
-        <to uri="mybatis:insertTutorials?statementType=InsertList"/>
+        <to uri="myBatis:insertTutorials?statementType=InsertList"/>
     </route>
 
     <route id="UpdateTutorialsRequest">
         <from uri="activemq:queue:MybatisUpdateTutorials" />
         <process ref="updateTutorialsRequestProcessor" />
-        <to uri="mybatis:updateTutorials?statementType=UpdateList"/>
+        <to uri="myBatis:updateTutorials?statementType=UpdateList"/>
     </route>
 
     <route id="DeleteTutorialsRequest">
         <from uri="activemq:queue:MybatisDeleteTutorials" />
         <process ref="deleteTutorialsRequestProcessor" />
-        <to uri="mybatis:deleteTutorials?statementType=DeleteList"/>
+        <to uri="myBatis:deleteTutorials?statementType=DeleteList"/>
     </route>
 
     <route id="TransactionalRequest">
@@ -55,9 +60,10 @@
         <transacted ref="txRequired" />
 <!--            <doTry>-->
                 <process ref="updateTutorialsRequestProcessor" />
-                <to uri="mybatis:updateTutorials?statementType=UpdateList"/>
+<!--                <process ref="updateTutorialsTransactionRequestProcessor" />-->
+                <to uri="myBatis:updateTutorials?statementType=UpdateList"/>
                 <process ref="transactionRequestProcessor" />
-                <to uri="mybatis:insertTutorials?statementType=InsertList"/>
+                <to uri="myBatis:insertTutorials?statementType=InsertList"/>
 <!--                <doCatch>-->
 <!--                    <exception>java.lang.Exception</exception>-->
 <!--                    <log message="aaaaaaaaaaaaaa" />-->
@@ -75,4 +81,26 @@
 <!--        </onException>-->
     </route>
 
+    <!-- MYSQL -->
+    <route id="GetAllAccountRequest">
+        <from uri="activemq:queue:MyBatisMySQLGetAllAccount" />
+        <to uri="myBatisMySQL:findAllAccounts?statementType=SelectList"/>
+        <process ref="getAllAccountResponseProcessor" />
+    </route>
+    <!-- Get data from MYSQL -> insert into MSSQL database master 2 -->
+    <route id="FindAccountByIdRequest">
+        <from uri="activemq:queue:MybatisMySQLFindAccountById" />
+        <process ref="findAccountByIdRequestProcessor" />
+        <to uri="myBatisMySQL:findAccountById?statementType=SelectOne"/>
+        <process ref="findAccountByIdResponseProcessor" />
+        <to uri="myBatis2:insertAccount?statementType=Insert"/>
+    </route>
+
+
+    <!-- Store Procedure MSSQL -->
+    <route id="GetPersonAddressProcedureRequest">
+        <from uri="activemq:queue:MybatisGetPersonAddressProcedure" />
+        <to uri="myBatis:callProcedureGetPersonAddress?statementType=SelectList"/>
+        <process ref="getPersonAddressResponseProcessor" />
+    </route>
 </routes>
