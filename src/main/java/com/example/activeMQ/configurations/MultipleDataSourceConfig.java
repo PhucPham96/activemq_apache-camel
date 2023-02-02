@@ -1,5 +1,6 @@
 package com.example.activeMQ.configurations;
 
+import com.example.activeMQ.utils.PasswordEncoder;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +22,7 @@ public class MultipleDataSourceConfig {
     public DataSource mssqlDataSource() {
         return mssqlDataSourceProperties()
                 .initializeDataSourceBuilder()
-                .password(decode(mssqlDataSourceProperties().getPassword()))
+                .password(PasswordEncoder.decode(mssqlDataSourceProperties().getPassword()))
                 .build();
     }
 
@@ -35,7 +36,7 @@ public class MultipleDataSourceConfig {
     public DataSource mssqlDataSource2() {
         return mssqlDataSourceProperties2()
                 .initializeDataSourceBuilder()
-                .password(decode(mssqlDataSourceProperties2()
+                .password(PasswordEncoder.decode(mssqlDataSourceProperties2()
                         .getPassword())).build();
     }
 
@@ -49,11 +50,7 @@ public class MultipleDataSourceConfig {
     public DataSource mySQLDataSource() {
         return mySQLDataSourceProperties()
                 .initializeDataSourceBuilder()
-                .password(decode(mySQLDataSourceProperties().getPassword()))
+                .password(PasswordEncoder.decode(mySQLDataSourceProperties().getPassword()))
                 .build();
-    }
-
-    private String decode(String passwordEncoded) {
-        return new String(Base64.getDecoder().decode(passwordEncoded));
     }
 }

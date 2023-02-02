@@ -19,11 +19,7 @@
         <to uri="myBatis:findAllTutorials?statementType=SelectList"/>
         <process ref="getAllTutorialResponseProcessor" />
     </route>
-    <route id="GetAllAccountsRequest2">
-        <from uri="activemq:queue:MyBatisGetAllAccounts2" />
-        <to uri="myBatis2:findAllAccounts?statementType=SelectList"/>
-        <process ref="getAllTutorialResponseProcessor" />
-    </route>
+
     <route id="FindTutorialByIdRequest">
         <from uri="activemq:queue:MybatisFindTutorialById" />
         <process ref="findTutorialByIdRequestProcessor" />
@@ -81,6 +77,14 @@
 <!--        </onException>-->
     </route>
 
+    <!-- MSSQL2 -->
+    <route id="GetAllAccountsRequest2">
+        <from uri="activemq:queue:MyBatisGetAllAccounts2" />
+        <to uri="myBatis2:findAllAccounts?statementType=SelectList"/>
+        <process ref="getAllTutorialResponseProcessor" />
+    </route>
+
+
     <!-- MYSQL -->
     <route id="GetAllAccountRequest">
         <from uri="activemq:queue:MyBatisMySQLGetAllAccount" />
@@ -102,5 +106,15 @@
         <from uri="activemq:queue:MybatisGetPersonAddressProcedure" />
         <to uri="myBatis:callProcedureGetPersonAddress?statementType=SelectList"/>
         <process ref="getPersonAddressResponseProcessor" />
+    </route>
+    <route id="GetAllTutorialsProcedureRequest">
+        <from uri="activemq:queue:MybatisGetAllTutorialsProcedure" />
+        <to uri="myBatis:callProcedureGetAllTutorials?statementType=SelectList"/>
+        <process ref="getPersonAddressResponseProcessor" />
+    </route>
+    <route id="GetTeamPlayerProcedureRequest">
+        <from uri="activemq:queue:MybatisGetTeamPlayerProcedure" />
+        <to uri="myBatis:callProcedureGetTeamPlayer?statementType=SelectList"/>
+        <process ref="getTeamPlayerResponseProcessor" />
     </route>
 </routes>

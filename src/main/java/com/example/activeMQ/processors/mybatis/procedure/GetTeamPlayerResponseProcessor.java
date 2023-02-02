@@ -1,6 +1,6 @@
 package com.example.activeMQ.processors.mybatis.procedure;
 
-import com.example.activeMQ.entity.Account;
+import com.example.activeMQ.entity.Team;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.Exchange;
@@ -11,12 +11,12 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class GetPersonAddressResponseProcessor implements Processor {
+public class GetTeamPlayerResponseProcessor implements Processor {
 
     @Override
     public void process(Exchange exchange) throws Exception {
-        log.info("GetPersonAddressResponseProcessor");
-        List<Object> persons = exchange.getIn().getBody(List.class);
-        log.info("List: {}", new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(persons));
+        log.info("GetTeamPlayerResponseProcessor");
+        List<Team> teams = exchange.getIn().getBody(List.class);
+        log.info("List: {}", new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(teams));
     }
 }

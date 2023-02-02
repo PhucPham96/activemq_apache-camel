@@ -12,15 +12,30 @@
         <result column="email" property="email" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="name" property="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
     </resultMap>
-    <resultMap id="PersonResultMap" type="java.lang.Object">
+    <resultMap id="PersonResultMap" type="com.example.activeMQ.entity.Person">
         <result column="id" property="id" javaType="java.lang.Long"/>
         <result column="name" property="name" javaType="java.lang.String"/>
-        <collection property="address" resultMap="AddressResultMap" />
+        <result column="address_id" javaType="java.lang.Long" />
     </resultMap>
-    <resultMap id="AddressResultMap" type="java.lang.Object">
+    <resultMap id="AddressResultMap" type="com.example.activeMQ.entity.Address">
         <result column="id" property="id" javaType="java.lang.Long"/>
         <result column="city" property="id" javaType="java.lang.String"/>
         <result column="province" property="province" javaType="java.lang.String"/>
+        <collection property="personList" resultMap="PersonResultMap" />
+    </resultMap>
+
+    <!-- Player -->
+    <resultMap id="PlayerResultMap" type="com.example.activeMQ.entity.Player">
+        <result column="id" property="id" javaType="java.lang.Long"/>
+        <result column="name" property="name" javaType="java.lang.String"/>
+    </resultMap>
+    <!-- Team -->
+    <resultMap id="TeamPlayerResultMap" type="com.example.activeMQ.entity.Team">
+        <result column="id" property="id" javaType="java.lang.Long"/>
+        <result column="name" property="name" javaType="java.lang.String"/>
+        <result column="playerId" property="playerId" javaType="java.lang.Long"/>
+        <result column="playerName" property="playerName" javaType="java.lang.String"/>
+<!--        <collection property="players" resultMap="PlayerResultMap" ofType="com.example.activeMQ.entity.Player"/>-->
     </resultMap>
 
     <!--Query-->
@@ -79,6 +94,9 @@
     </select>
     <select id="callProcedureGetPersonAddress" resultMap="PersonResultMap">
         { call GetPersonAddress() }
+    </select>
+    <select id="callProcedureGetTeamPlayer" resultMap="TeamPlayerResultMap">
+        { call GetPlayerTeam() }
     </select>
 
 
